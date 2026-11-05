@@ -220,6 +220,11 @@
     ScrollTrigger.batch('.card', { start: 'top 92%', once: true,
       onEnter: function (b) { gsap.to(b, { autoAlpha: 1, y: 0, duration: .6, stagger: .08, ease: 'power3.out', overwrite: true, clearProps: 'transform' }); } });
 
+    /* CAFÉ CON-CIENCIA: el gato entra con su taza */
+    gsap.fromTo('.cafe-gato', { x: c.desk ? 220 : 60, rotation: 14, scale: .75, autoAlpha: 0 },
+      { x: 0, rotation: -2, scale: 1, autoAlpha: 1, ease: 'power2.out',
+        scrollTrigger: { trigger: '.cafe', start: 'top 85%', end: 'top 25%', scrub: .8 } });
+
     /* PARTICIPA: los dos personajes se encuentran */
     gsap.timeline({ defaults: { ease: 'power2.out' },
       scrollTrigger: { trigger: '.participa', start: 'top 85%', end: 'top 15%', scrub: .8 } })

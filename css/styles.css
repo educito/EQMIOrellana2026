@@ -173,11 +173,13 @@ button{font:inherit;color:inherit;cursor:pointer}
   .gato{width:min(56vw,240px);max-height:none}
 }
 
-/* ── Café con-Ciencia ── */
+/* ── Café con-CiencIA ── */
 .cafe{padding-block:clamp(50px,7vw,100px) 0}
 .cafe-grid{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center}
 .cafe-copy p+p{margin-top:1em}
-.cafe-data{margin-right:clamp(8px,1.4vw,18px)}
+.cafe-side{display:grid;gap:clamp(14px,2vw,24px);justify-items:center;min-width:0}
+.cafe-gato{width:auto;height:clamp(260px,44svh,460px);filter:drop-shadow(0 12px 30px rgba(180,75,226,.45))}
+.cafe-data{width:100%;margin-right:clamp(8px,1.4vw,18px)}
 .day a{color:inherit}
 @media (max-width:860px){.cafe-grid{grid-template-columns:1fr}}
 
@@ -233,4 +235,4 @@ button{font:inherit;color:inherit;cursor:pointer}
 
 /* Flotación suave */
 @keyframes bob{0%,100%{translate:0 0;rotate:-1.2deg}50%{translate:0 -12px;rotate:1.2deg}}
-@media (prefers-reduced-motion:no-preference){.float-a,.meet img{animation:bob 6s ease-in-out infinite}.meet-gato{animation-delay:-2.6s!important}}
+@media (prefers-reduced-motion:no-preference){.float-a,.meet img,.cafe-gato{animation:bob 6s ease-in-out infinite}.meet-gato{animation-delay:-2.6s!important}}
