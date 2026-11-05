@@ -137,15 +137,16 @@
   }, function (ctx) {
     var c = ctx.conditions;
     if (!c.motion) return;
+    var setProgramH;
 
-    /* Primero los pines, para que los demás disparadores cuenten su espacio */
+    /* Escenas fijas con position:sticky: el alto de cada contenedor da el recorrido */
     if (c.desk) {
       root.classList.add('motion-hero', 'motion-h');
 
       /* HERO fijado: Eugenia sube desde el río y cambia la escena */
       var heroTl = gsap.timeline({
         defaults: { ease: 'none' },
-        scrollTrigger: { trigger: '.hero', start: 'top top', end: '+=130%', pin: true, scrub: .7, anticipatePin: 1 }
+        scrollTrigger: { trigger: '.hero-track', start: 'top top', end: 'bottom bottom', scrub: .7 }
       });
       gsap.set('.hero-intro', { autoAlpha: 0, y: 46 });
       heroTl
@@ -160,9 +161,12 @@
       /* PROGRAMA: recorrido horizontal con Eugenia volando */
       var days = $('#days');
       var dist = function () { return Math.max(0, days.scrollWidth - innerWidth); };
+      setProgramH = function () { $('.programa').style.height = (innerHeight * 1.35 + dist()) + 'px'; };
+      setProgramH();
+      ScrollTrigger.addEventListener('refreshInit', setProgramH);
       var dayTl = gsap.timeline({
         defaults: { ease: 'none' },
-        scrollTrigger: { trigger: '.program-pin', start: 'top top', end: function () { return '+=' + (dist() + innerHeight * .35); }, pin: true, scrub: .6, invalidateOnRefresh: true, anticipatePin: 1 }
+        scrollTrigger: { trigger: '.programa', start: 'top top', end: 'bottom bottom', scrub: .6, invalidateOnRefresh: true }
       });
       dayTl.to(days, { x: function () { return -dist(); }, duration: 1 }, 0)
         .fromTo('.program-eugenia',
@@ -222,7 +226,11 @@
       .fromTo('.meet-eugenia', { x: '-46vw', rotation: -22, scale: .7 }, { x: 0, rotation: 0, scale: 1 }, 0)
       .fromTo('.meet-gato', { x: '46vw', rotation: 22, scale: .7 }, { x: 0, rotation: 0, scale: 1 }, 0);
 
-    return function () { root.classList.remove('motion-hero', 'motion-h'); };
+    return function () {
+      root.classList.remove('motion-hero', 'motion-h');
+      if (setProgramH) ScrollTrigger.removeEventListener('refreshInit', setProgramH);
+      $('.programa').style.height = '';
+    };
   });
 
   addEventListener('load', function () { ScrollTrigger.refresh(); });
